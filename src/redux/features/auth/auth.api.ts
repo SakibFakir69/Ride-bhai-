@@ -1,0 +1,61 @@
+
+
+
+import { MyEnv } from "@/config/config.env";
+import { baseAPi } from "@/redux/baseApi";
+
+
+console.log("Login URL =>", `${MyEnv.api}/api/ride-share/auth/login`);
+
+
+
+export const authApi = baseAPi.injectEndpoints({
+
+    endpoints:(builder)=>({
+
+        // create user 
+
+        createUser:builder.mutation({
+
+            query:(userInfo)=>({
+                url:"/user/create-user",
+                method:"POST",
+                data:userInfo,
+
+            })
+        }),
+
+        // login 
+
+        login:builder.mutation({
+            query:(userInfo)=>({
+
+                url:"/auth/login-user",
+                method:"POST",
+                data:userInfo,
+
+            })
+        }),
+
+
+        // user info 
+
+        userInfo :builder.query({
+            query:()=>({
+                 url:'/auth/me',
+                 method:"GET"
+
+            })
+           
+        })
+
+
+
+    })
+
+
+
+})
+
+
+export const {useCreateUserMutation , useLoginMutation,useUserInfoQuery} = authApi;
