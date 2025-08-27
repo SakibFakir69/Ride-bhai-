@@ -1,3 +1,4 @@
+import { ur } from 'zod/v4/locales';
 
 import { baseAPi } from "@/redux/baseApi";
 
@@ -23,6 +24,27 @@ const driverApi = baseAPi.injectEndpoints({
 
 
 
+        }),
+
+        requestHandel:builder.mutation({
+
+            query:(statusType)=>({
+                url:"/drivers/request",
+                method:"PATCH",
+                data:statusType,
+
+            })
+        }),
+
+        // lasted ride
+
+        lastestRide:builder.query({
+            query:()=>({
+
+                url:"/drivers/lastest-ride",
+                method:"GET"
+
+            })
         })
 
 
@@ -32,4 +54,4 @@ const driverApi = baseAPi.injectEndpoints({
 
 
 
-export const {useStatusHandelMutation} = driverApi;
+export const {useStatusHandelMutation, useRequestHandelMutation} = driverApi;

@@ -1,5 +1,9 @@
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
-import { useStatusHandelMutation } from "@/redux/features/driver/driver.api";
+import {
+  useRequestHandelMutation,
+  useStatusHandelMutation,
+} from "@/redux/features/driver/driver.api";
+import type { IRequest } from "@/types/driver.types";
 import LoadingComponent from "@/utils/utils.loading";
 
 
@@ -12,26 +16,68 @@ function Request() {
   const { data, isLoading } = useUserInfoQuery("");
   console.log(data?.data?.name);
   const [statusHandel] = useStatusHandelMutation();
+  const [requestHandel,{data:lastestDriverRides}] = useRequestHandelMutation();
+  console.log(lastestDriverRides , 'lasted Drive rides')
 
-  const { name } = data?.data;
+  const { name,_id } = data?.data;
 
   const [status, setStatus] = useState<boolean>(false);
 
   const handelStatus = async () => {
     setStatus((prev) => !prev);
 
-    const payload={
-      user_status: status ? "ONLINE" : "OFFLINE"
+    try {
+      const payload = {
+        user_status: status ? "ONLINE" : "OFFLINE",
+      };
+
+      if (status) {
+        const res = await statusHandel(payload).unwrap();
+        console.log(res);
+      } else {
+        const res = await statusHandel(payload).unwrap();
+        console.log(res);
+      }
+      console.log(payload);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // request handel
+
+  const requestPayload: IRequest = {
+    driver_status: "ACCPET",
+  };
+  const requestPayload2: IRequest = {
+    driver_status: "REJECT",
+  };
+
+  const handelaAccpet =async () => {
+
+    try {
+      const res = await requestHandel(requestPayload).unwrap();
+      console.log(res)
+      
+    } catch (error) {
+      
     }
 
-    if (status) {
-      const res = await statusHandel(payload).unwrap();
+  };
+
+
+  const handelReject =async () => {
+
+    try{
+      const res= await requestHandel(requestPayload2).unwrap();
       console.log(res);
-    } else {
-      const res = await statusHandel(payload).unwrap();
-      console.log(res);
+
+    }catch(error){
+      console.log(error)
+
     }
-    console.log(payload)
+
+
   };
 
   if (isLoading) {
@@ -47,6 +93,7 @@ function Request() {
           <h1 className="md:text-4xl  font-semibold">Driver</h1>
 
           <h2 className="font-semibold ">Welcome back ,{name}</h2>
+          {_id}
         </div>
 
         {/* controll */}
@@ -63,6 +110,21 @@ function Request() {
             {status ? "Online" : "Offline"}
           </button>
         </div>
+      </section>
+
+      {/* request accpet or reject */}
+      <section>
+
+        {lastestDriverRides?.data && (
+  <div className="ride-info mt-10 border p-4">
+    <p><strong>Fare:</strong> {lastestDriverRides.data.fare}</p>
+    <p><strong>Current:</strong> {lastestDriverRides.data.current}</p>
+    <p><strong>Destination:</strong> {lastestDriverRides.data.destination}</p>
+    <p><strong>Rider ID:</strong> {lastestDriverRides.data.rider_id}</p>
+  </div>
+)}
+
+
       </section>
     </div>
   );
