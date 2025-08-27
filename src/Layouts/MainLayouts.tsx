@@ -12,7 +12,7 @@ function MainLayouts() {
           <Navbar />
         </nav>
 
-        <main className="">
+        <main className="h-screen">
           <Outlet />
           
         </main>

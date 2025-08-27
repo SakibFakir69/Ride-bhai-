@@ -28,11 +28,14 @@ export default function Navbar() {
       ];
     } else if (role === "DRIVER") {
       return [
-        { href: "driver/request", label: "Request" },
+        { href: "driver/request", label: "Incoming Requests" },
+        
         { href: "driver/ride-history", label: "Ride History" },
         { href: "driver/management", label: "Management" },
-        { href: "contact", label: "Profile" },
+        { href: "profile", label: "Profile" },
       ];
+
+
     } else if (role === "ADMIN") {
       return [
         { href: "/admin", label: "Admin" },

@@ -109,7 +109,9 @@ function RideHistory() {
     }
   };
 
-  if (isLoading) <LoadingComponent/>
+  if (isLoading) {
+    return <LoadingComponent/>
+  }
 
 
 
