@@ -54,7 +54,7 @@ function Request() {
   }
 
   return (
-    <div className=" border w-full  flex justify-center items-center h-screen flex-col">
+    <div className=" border w-full  flex justify-center items-center  py-10 flex-col">
       {/* avaiality controll */}
 
       <section className="w-full  border  p-6 flex justify-between  items-center ">

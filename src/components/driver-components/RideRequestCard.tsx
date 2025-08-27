@@ -122,6 +122,9 @@ export default function RideRequestCard() {
       animate={{ y: 0, opacity: 1 }}
       className="flex justify-center items-center   w-full  p-4 mb-20"
     >
+
+      {data.length===0  && <h1 className="text-2xl md:text-4xl font-semibold text-center">No ride founed</h1>}
+
       {confirm === false && (
         <Card className="w-full  shadow-xl rounded-2xl border">
           <CardHeader>
