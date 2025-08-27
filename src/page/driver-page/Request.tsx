@@ -1,11 +1,12 @@
+import RideRequestCard from "@/components/driver-components/RideRequestCard";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import {
+  useLastestRideQuery,
   useRequestHandelMutation,
   useStatusHandelMutation,
 } from "@/redux/features/driver/driver.api";
 import type { IRequest } from "@/types/driver.types";
 import LoadingComponent from "@/utils/utils.loading";
-
 
 import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
@@ -16,10 +17,14 @@ function Request() {
   const { data, isLoading } = useUserInfoQuery("");
   console.log(data?.data?.name);
   const [statusHandel] = useStatusHandelMutation();
-  const [requestHandel,{data:lastestDriverRides}] = useRequestHandelMutation();
-  console.log(lastestDriverRides , 'lasted Drive rides')
+  const { data: latestRide } = useLastestRideQuery(" ");
 
-  const { name,_id } = data?.data;
+  console.log("founed", latestRide);
+
+  const name = data?.data?.name ?? "";
+  const _id = data?.data?._id ?? "";
+  const isCompleteRide = data?.data?.isCompleteRide;
+  console.log(isCompleteRide);
 
   const [status, setStatus] = useState<boolean>(false);
 
@@ -44,52 +49,16 @@ function Request() {
     }
   };
 
-  // request handel
-
-  const requestPayload: IRequest = {
-    driver_status: "ACCPET",
-  };
-  const requestPayload2: IRequest = {
-    driver_status: "REJECT",
-  };
-
-  const handelaAccpet =async () => {
-
-    try {
-      const res = await requestHandel(requestPayload).unwrap();
-      console.log(res)
-      
-    } catch (error) {
-      
-    }
-
-  };
-
-
-  const handelReject =async () => {
-
-    try{
-      const res= await requestHandel(requestPayload2).unwrap();
-      console.log(res);
-
-    }catch(error){
-      console.log(error)
-
-    }
-
-
-  };
-
   if (isLoading) {
     return <LoadingComponent />;
   }
 
   return (
-    <div className=" border w-full  flex justify-center items-center">
+    <div className=" border w-full  flex justify-center items-center h-screen flex-col">
       {/* avaiality controll */}
 
-      <section className="w-full  border p-10 flex justify-between  items-center">
-        <div className="py-20">
+      <section className="w-full  border  p-6 flex justify-between  items-center ">
+        <div className="py-10">
           <h1 className="md:text-4xl  font-semibold">Driver</h1>
 
           <h2 className="font-semibold ">Welcome back ,{name}</h2>
@@ -112,19 +81,8 @@ function Request() {
         </div>
       </section>
 
-      {/* request accpet or reject */}
       <section>
-
-        {lastestDriverRides?.data && (
-  <div className="ride-info mt-10 border p-4">
-    <p><strong>Fare:</strong> {lastestDriverRides.data.fare}</p>
-    <p><strong>Current:</strong> {lastestDriverRides.data.current}</p>
-    <p><strong>Destination:</strong> {lastestDriverRides.data.destination}</p>
-    <p><strong>Rider ID:</strong> {lastestDriverRides.data.rider_id}</p>
-  </div>
-)}
-
-
+        {latestRide && !latestRide.data?.isCompleteRide && <RideRequestCard />}
       </section>
     </div>
   );
