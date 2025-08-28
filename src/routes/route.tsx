@@ -16,6 +16,7 @@ import Profile from "@/profiles/Profiles";
 import React from "react";
 import { createBrowserRouter } from "react-router";
 import RideDetails from "@/page/rider-page/Ride.Details";
+import Earning from "@/page/driver-page/Earning";
 
 const RegisterComponent = React.lazy(() => import("@/auth/Regstation"));
 const LoginComponents = React.lazy(() => import("@/auth/Login"));
@@ -44,7 +45,7 @@ export const route = createBrowserRouter([
 
       {path:'driver/request', element:<Request/>},
       {path:'driver/ride-history' , element:<RideHistory/>} ,
-      {path:'driver/management', element:<RideManagement/>}
+      {path:'driver/earning', element:<Earning/>}
     
     ],
   },

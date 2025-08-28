@@ -36,16 +36,32 @@ const driverApi = baseAPi.injectEndpoints({
             method:"PATCH",
             data:status
         })
+    }),
+
+
+    // earning
+
+    handleEarning:builder.query({
+
+        query:()=>({
+          url:"/drivers/earning",
+          method:"GET"
+        })
+
+
+      })
     })
 
 
 
-  }),
-});
+  })
 
 export const {
   useStatusHandelMutation,
   useRequestHandelMutation,
   useLastestRideQuery,
   useRideTimeStatusMutation
+  ,
+  useHandleEarningQuery
+
 } = driverApi;

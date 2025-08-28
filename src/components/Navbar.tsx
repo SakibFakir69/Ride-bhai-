@@ -31,7 +31,7 @@ export default function Navbar() {
         { href: "driver/request", label: "Incoming Requests" },
         
         { href: "driver/ride-history", label: "Ride History" },
-        { href: "driver/management", label: "Management" },
+        { href: "driver/Earning", label: "Earning" },
         { href: "profile", label: "Profile" },
       ];
 

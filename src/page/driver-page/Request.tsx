@@ -57,7 +57,7 @@ function Request() {
     <div className=" border w-full  flex justify-center items-center  py-10 flex-col">
       {/* avaiality controll */}
 
-      <section className="w-full  border  p-6 flex justify-between  items-center ">
+      <section className="w-full    p-6 flex justify-between  items-center ">
         <div className="py-10">
           <h1 className="md:text-4xl  font-semibold">Driver</h1>
 
@@ -82,7 +82,11 @@ function Request() {
       </section>
 
       <section>
-        {latestRide && !latestRide.data?.isCompleteRide && <RideRequestCard />}
+
+        {latestRide && !latestRide.data?.isCompleteRide && <RideRequestCard /> }
+
+        {!latestRide && <p className="text-center border ">No Rider Founed</p>}
+
       </section>
     </div>
   );
