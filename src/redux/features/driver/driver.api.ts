@@ -27,41 +27,43 @@ const driverApi = baseAPi.injectEndpoints({
       providesTags: ["DRIVER"], // ✅ mark this query for invalidation
     }),
 
+    // ride time status
 
-    // ride time status 
-
-    rideTimeStatus : builder.mutation({
-        query:(status)=>({
-            url:"/drivers/ride/status",
-            method:"PATCH",
-            data:status
-        })
+    rideTimeStatus: builder.mutation({
+      query: (status) => ({
+        url: "/drivers/ride/status",
+        method: "PATCH",
+        data: status,
+      }),
     }),
-
 
     // earning
 
-    handleEarning:builder.query({
+    handleEarning: builder.query({
+      query: () => ({
+        url: "/drivers/earning",
+        method: "GET",
+      }),
+    }),
 
-        query:()=>({
-          url:"/drivers/earning",
-          method:"GET"
-        })
+    // history
 
+    driverRideHistory: builder.query({
+      query: (params) => ({
+        url: "/drivers/driver/ride-history",
+        method: "GET",
+        params: params,
+      }),
+    }),
+  }),
 
-      })
-    })
-
-
-
-  })
-
+  // history
+});
 export const {
   useStatusHandelMutation,
   useRequestHandelMutation,
   useLastestRideQuery,
-  useRideTimeStatusMutation
-  ,
-  useHandleEarningQuery
-
+  useRideTimeStatusMutation,
+  useHandleEarningQuery,
+  useDriverRideHistoryQuery,
 } = driverApi;

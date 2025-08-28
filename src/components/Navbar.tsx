@@ -30,7 +30,7 @@ export default function Navbar() {
       return [
         { href: "driver/request", label: "Incoming Requests" },
         
-        { href: "driver/ride-history", label: "Ride History" },
+        { href: "driver/driver-history", label: "History" },
         { href: "driver/Earning", label: "Earning" },
         { href: "profile", label: "Profile" },
       ];
