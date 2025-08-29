@@ -9,7 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import Logo from "./logo";
+import Logo from "./Logo";
 import { ModeToggle } from "./mode-toggle";
 import { Link } from "react-router"; // ✅ Fixed import
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
@@ -38,9 +38,9 @@ export default function Navbar() {
 
     } else if (role === "ADMIN") {
       return [
-        { href: "/admin", label: "Admin" },
-        { href: "/faq", label: "Faq" },
-        { href: "/contact", label: "Contact" },
+        { href: "admin/user-management", label: "User Management" },
+        { href: "admin/ride-oversight", label: "Ride Oversight" },
+        { href: "admin/dashboard", label: "Dashboard" },
       ];
     } else {
       return [

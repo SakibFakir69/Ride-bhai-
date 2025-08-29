@@ -1,6 +1,4 @@
 "use client";
-
-import React from "react";
 const GitHubIcon = ({
   size = 24,
   className = ""

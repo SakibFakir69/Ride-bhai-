@@ -2,7 +2,7 @@
 
 
 
-function profile() {
+function AllDriver() {
   return (
     <div>
       
@@ -10,4 +10,4 @@ function profile() {
   )
 }
 
-export default profile
+export default AllDriver

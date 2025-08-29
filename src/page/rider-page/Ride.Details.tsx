@@ -1,7 +1,7 @@
 import { useRideDetailsQuery } from "@/redux/features/rider/rider.api";
 import LoadingComponent from "@/utils/utils.loading";
 import { DollarSignIcon } from "lucide-react";
-import React from "react";
+
 import { FaMapMarkerAlt, FaCar, FaClock } from "react-icons/fa";
 
 function RideDetails() {

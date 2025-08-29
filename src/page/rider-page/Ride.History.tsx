@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useUserHistoryQuery } from '@/redux/features/user/user.api';
-import { ModeToggle } from '@/components/mode-toggle';
+
 import LoadingComponent from '@/utils/utils.loading';
 
 interface Ride {
@@ -61,7 +61,7 @@ function RideHistory() {
     sortBy: filters.sortBy
   };
 
-  const { data, isLoading, isError, refetch } = useUserHistoryQuery(queryParams);
+  const { data, isLoading} = useUserHistoryQuery(queryParams);
 
   // Reset to page 1 when filters change (except pagination-related ones)
   useEffect(() => {

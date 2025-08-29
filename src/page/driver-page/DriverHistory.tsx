@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { useDriverRideHistoryQuery } from "@/redux/features/driver/driver.api";
 import LoadingComponent from "@/utils/utils.loading";
-import React, { useState, useMemo } from "react";
+import  { useState, useMemo } from "react";
 
 function DriverHistory() {
   const { data, isLoading } = useDriverRideHistoryQuery('');

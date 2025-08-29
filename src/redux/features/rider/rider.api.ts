@@ -1,4 +1,4 @@
-import RideDetails from "@/page/rider-page/Ride.Details";
+
 import { baseAPi } from "@/redux/baseApi";
 
 

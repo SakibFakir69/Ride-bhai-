@@ -1,7 +1,6 @@
 
 
 
-import React from 'react'
 import HeroSection from './components/HeroSection'
 import LandingFeatures from './LandingFeatures'
 import LandingAbout from './LandingAbout'

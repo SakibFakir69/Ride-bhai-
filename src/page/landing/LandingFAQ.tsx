@@ -1,7 +1,6 @@
 
 
 import AccordionLast from '@/components/ui/accordion-last'
-import React from 'react'
 
 function LandingFAQ() {
   return (

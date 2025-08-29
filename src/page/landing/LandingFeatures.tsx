@@ -1,6 +1,4 @@
-"use client";
 
-import React from "react";
 import { featuresRider } from "@/utils/utils.rider";
 import { driverFeatures } from "@/utils/utils.driver";
 import { adminFeatures } from "@/utils/utils.admin";

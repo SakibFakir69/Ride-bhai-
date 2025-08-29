@@ -1,6 +1,6 @@
-import React from "react";
 
-import { Send, Phone, MapPin, Mail } from "lucide-react";
+
+import { Send, MapPin, Mail } from "lucide-react";
 
 import { toast, ToastContainer } from "react-toastify";
 import { SiLinkedin } from "react-icons/si";

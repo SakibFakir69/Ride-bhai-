@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import LeafletMap from "@/leaflet-map/LeafletMap";
 import { MapPin, Navigation } from "lucide-react";
 import { useRideRequestMutation } from "@/redux/features/rider/rider.api";
-import { myLocation } from "@/utils/utils.geolocation";
+
 // 1. Define Zod schema
 const rideSchema = z.object({
   startPoint: z.string().min(2, "Starting point is required"),

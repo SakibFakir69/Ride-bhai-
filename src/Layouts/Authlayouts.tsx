@@ -1,8 +1,7 @@
 
 
 
-import { Outdent } from 'lucide-react'
-import React, { Suspense } from 'react'
+import{ Suspense } from 'react'
 import { Outlet } from 'react-router'
 
 function Authlayouts() {

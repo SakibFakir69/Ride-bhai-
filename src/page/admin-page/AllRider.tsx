@@ -2,7 +2,8 @@
 
 
 
-function profile() {
+
+function AllRider() {
   return (
     <div>
       
@@ -10,4 +11,4 @@ function profile() {
   )
 }
 
-export default profile
+export default AllRider

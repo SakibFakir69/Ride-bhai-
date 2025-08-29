@@ -2,13 +2,14 @@ import RideRequestCard from "@/components/driver-components/RideRequestCard";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import {
   useLastestRideQuery,
-  useRequestHandelMutation,
+
   useStatusHandelMutation,
 } from "@/redux/features/driver/driver.api";
-import type { IRequest } from "@/types/driver.types";
-import LoadingComponent from "@/utils/utils.loading";
 
-import React, { useState } from "react";
+import LoadingComponent from "@/utils/utils.loading";
+import { useState } from "react";
+
+
 import { twMerge } from "tailwind-merge";
 
 // after complete , polished
@@ -26,7 +27,7 @@ function Request() {
   const isCompleteRide = data?.data?.isCompleteRide;
   console.log(isCompleteRide);
 
-  const [status, setStatus] = useState<boolean>(false);
+  const [status, setStatus] = useState(false);
 
   const handelStatus = async () => {
     setStatus((prev) => !prev);

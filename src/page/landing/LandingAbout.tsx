@@ -1,6 +1,5 @@
 
 
-import React from 'react'
 import AboutSection from './components/AboutSection'
 
 // statsData.js
@@ -41,11 +40,12 @@ import { Calendar, Users, Truck, MapPin, CheckCircle, Activity } from "lucide-re
 
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 
-import  { ScrollTimeline }  from '@/components/lightswind/scroll-timeline.js'
+
 
 // import ScrollTimeline from "@/components/lightswind/scroll-timeline.js"
 
 import TeamMemberSection from '@/components/ui/teammember.js';
+import ScrollTimeline from '@/components/lightswind/scroll-timeline.js';
 
 
 

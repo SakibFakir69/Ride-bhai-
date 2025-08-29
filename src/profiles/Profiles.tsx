@@ -9,7 +9,7 @@ import type {
   IVehicle,
 } from "@/types/index";
 import clsx from "clsx";
-import { ImageIcon } from "lucide-react";
+
 
 import LoadingComponent from "@/utils/utils.loading";
 
