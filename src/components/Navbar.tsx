@@ -12,11 +12,16 @@ import {
 import Logo from "./Logo";
 import { ModeToggle } from "./mode-toggle";
 import { Link } from "react-router"; // ✅ Fixed import
-import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
+import { authApi, useUserInfoQuery, useUserLogoutMutation } from "@/redux/features/auth/auth.api";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "@reduxjs/toolkit/query";
+import { clearUser } from "@/redux/features/authSlice";
 
 export default function Navbar() {
-  const { data } = useUserInfoQuery(undefined);
+  const { data ,refetch} = useUserInfoQuery(undefined);
   const { role } = data?.data || {};
+  const [userLogout] = useUserLogoutMutation();
 
   const roleBasedNavbar = (role: string) => {
     if (role === "RIDER") {
@@ -54,6 +59,26 @@ export default function Navbar() {
   };
 
   const navigationLinks = roleBasedNavbar(role || "");
+  const disptach = useDispatch()
+ 
+
+  const handelLogout =async ()=>{
+    console.log("log out")
+
+    try{
+
+      await userLogout('').unwrap();
+     
+      toast.success("Log out ")
+      disptach(authApi.util.resetApiState());
+
+    }catch(error:any)
+    {
+      toast.error(error.message)
+
+    }
+    
+  }
 
   return (
     <header className="border-b px-4 md:px-6 fixed w-full z-50 backdrop-blur-3xl">
@@ -111,9 +136,9 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <ModeToggle />
 
-          {data?.data?.email && <Button>Log Out</Button>}
+          {data?.data?.email && <Button onClick={handelLogout}>Log Out</Button>}
           {!data?.data?.email && (
-            <Button asChild variant="ghost" size="sm" className="text-sm">
+            <Button  asChild variant="ghost" size="sm" className="text-sm z-50">
               <Link to={"/auth/login"}>Sign In</Link>
             </Button>
           )}

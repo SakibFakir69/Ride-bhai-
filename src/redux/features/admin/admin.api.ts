@@ -43,13 +43,25 @@ const adminApi = baseAPi.injectEndpoints({
             url:`/admin/block/${id}`,
             method:"PATCH",
             data:{account}
-        })
+        }),
 
-    })
+
+
+    }),
+    
+        // all ride
+
+        allRide:builder.query({
+            query:()=>({
+                 url:"/admin/all-ride",
+                 method:"GET",
+
+            })
+        })
 
 
 
   }),
 });
 
-export const { useAllDriverQuery, useHandelDriverMutation, useHandelUsersQuery , useHandleUserAccountMutation } = adminApi;
+export const { useAllDriverQuery, useHandelDriverMutation, useHandelUsersQuery , useHandleUserAccountMutation , useAllRideQuery} = adminApi;

@@ -1,3 +1,4 @@
+import { ur } from 'zod/v4/locales';
 
 
 
@@ -45,8 +46,20 @@ export const authApi = baseAPi.injectEndpoints({
                  url:'/auth/me',
                  method:"GET"
 
-            })
+            }),
+            
            
+        }),
+
+        // user log out
+
+        userLogout : builder.mutation({
+            query:()=>({
+                url:"/auth/log-out",
+                method:"POST",
+            
+            }),
+            invalidatesTags:['USER']
         })
 
 
@@ -58,4 +71,4 @@ export const authApi = baseAPi.injectEndpoints({
 })
 
 
-export const {useCreateUserMutation , useLoginMutation,useUserInfoQuery} = authApi;
+export const {useCreateUserMutation , useLoginMutation,useUserInfoQuery,useUserLogoutMutation} = authApi;
