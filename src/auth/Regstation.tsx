@@ -211,6 +211,17 @@ export default function SigninForm() {
           </form>
         </Form>
       </Card>
+       <div className="text-center space-y-2">
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            You have already account?{" "}
+            <a href="/auth/login" className="underline">
+              Log in
+            </a>
+          </p>
+          <a href="#" className="text-sm underline text-zinc-900 dark:text-zinc-50">
+            Forgot your password?
+          </a>
+        </div>
     </div>
   )
 }
