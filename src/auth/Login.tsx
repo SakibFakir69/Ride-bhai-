@@ -11,6 +11,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { EyeIcon, EyeOffIcon, UserIcon, AppleIcon,  XIcon } from "lucide-react" // adjust path
 import { BsGoogle } from "react-icons/bs";
 import { useNavigate } from "react-router";
+import { toast, ToastContainer } from "react-toastify";
+import LoadingComponent from "@/utils/utils.loading";
 
 
 
@@ -25,7 +27,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 export default function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [login] = useLoginMutation();
+  const [login,{isLoading}] = useLoginMutation();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -38,18 +40,27 @@ export default function Login() {
       await login(values).unwrap();
       // handle success, e.g., redirect
       console.log(values);
+      toast.success("Login Successfully")
       navigate('/')
 
-    } catch (error) {
+    } catch (error:any) {
       console.log(error);
+      toast.error(`Login failed because${error.message}`)
       // handle error, show toast or form error
     }
   };
+
+
+  if(isLoading)
+  {
+    return <LoadingComponent/>
+  }
 
   return (
     <div className="flex items-center justify-center h-screen bg-zinc-50 dark:bg-zinc-950">
       <div className="w-full max-w-sm p-6 space-y-6 bg-white dark:bg-black rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-lg">
         {/* Header */}
+        <ToastContainer/>
         <div className="text-center space-y-3">
           <div className="inline-flex p-2 bg-zinc-100 dark:bg-zinc-900 rounded-md border border-zinc-200 dark:border-zinc-800">
             <UserIcon className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />

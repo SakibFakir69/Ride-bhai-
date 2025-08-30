@@ -9,42 +9,42 @@ export default function LeafletMap() {
   const [lng, setLng] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-  socket.on("connect", () => {
-    console.log("✅ Socket connected:", socket.id);
+//   useEffect(() => {
+//   socket.on("connect", () => {
+//     console.log("✅ Socket connected:", socket.id);
 
 
 
 
-  });
+//   });
 
-  socket.on("disconnect", (reason) => {
-    console.log("❌ Socket disconnected:", reason);
-  });
+//   socket.on("disconnect", (reason) => {
+//     console.log("❌ Socket disconnected:", reason);
+//   });
 
-  return () => {
-    socket.off("connect");
-    socket.off("disconnect");
-  };
-}, []);
+//   return () => {
+//     socket.off("connect");
+//     socket.off("disconnect");
+//   };
+// }, []);
 
 
-  useEffect(() => {
-    setMounted(true);
+  // useEffect(() => {
+  //   setMounted(true);
 
-    // fetch user location once when mounted
-    (async () => {
-      try {
-        const position = await myLocation(); // GeolocationPosition
-        const { latitude, longitude } = position.coords;
+  //   // fetch user location once when mounted
+  //   (async () => {
+  //     try {
+  //       const position = await myLocation(); // GeolocationPosition
+  //       const { latitude, longitude } = position.coords;
 
-        setLat(latitude);
-        setLng(longitude);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, []);
+  //       setLat(latitude);
+  //       setLng(longitude);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   })();
+  // }, []);
 
   if (!mounted) return <div>Loading map...</div>;
   if (lat === null || lng === null) return <div>Getting your location...</div>;
