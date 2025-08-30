@@ -1,6 +1,6 @@
 import { useDriverActivityQuery } from "@/redux/features/admin/admin.api";
 import LoadingComponent from "@/utils/utils.loading";
-import { CarIcon } from "lucide-react";
+
 import {
   BarChart, Bar, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis
 } from "recharts";

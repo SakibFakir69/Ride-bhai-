@@ -8,8 +8,7 @@ export const baseAPi = createApi({
   reducerPath: "baseAPi",
 
   baseQuery: axiosBaseQuery({
-    baseUrl: "http://localhost:5000/api/ride-share",
-   
+    baseUrl: "https://tour-backend-1-avy4.onrender.com/api/ride-share",
   }),
 
   tagTypes: ["RIDER", "DRIVER", "ADMIN","USER"],

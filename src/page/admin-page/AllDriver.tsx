@@ -12,7 +12,7 @@ import {
 
 
 import { toast, ToastContainer } from "react-toastify";
-import type clsx from "clsx";
+
 import { twMerge } from "tailwind-merge";
 
 
@@ -55,7 +55,7 @@ const [handelDriver] = useHandelDriverMutation(); // or use the mutation hook
 
 const handleApproved = async (id: string) => {
   try {
-    const res = await handelDriver({ id, account_status: "APPROVED" }).unwrap();
+    await handelDriver({ id, account_status: "APPROVED" }).unwrap();
     toast.success("Driver Approved");
     refetch();
   } catch (error: any) {
@@ -65,7 +65,7 @@ const handleApproved = async (id: string) => {
 
 const handleSuspend = async (id: string) => {
   try {
-    const res = await handelDriver({ id, account_status: "SUSPEND" }).unwrap();
+     await handelDriver({ id, account_status: "SUSPEND" }).unwrap();
     toast.success("Driver Suspended");
     refetch();
     

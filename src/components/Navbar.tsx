@@ -14,12 +14,11 @@ import { ModeToggle } from "./mode-toggle";
 import { Link } from "react-router"; // ✅ Fixed import
 import { authApi, useUserInfoQuery, useUserLogoutMutation } from "@/redux/features/auth/auth.api";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "@reduxjs/toolkit/query";
-import { clearUser } from "@/redux/features/authSlice";
+import { useDispatch } from "react-redux";
+
 
 export default function Navbar() {
-  const { data ,refetch} = useUserInfoQuery(undefined);
+  const { data } = useUserInfoQuery(undefined);
   const { role } = data?.data || {};
   const [userLogout] = useUserLogoutMutation();
 

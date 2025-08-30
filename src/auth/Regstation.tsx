@@ -21,7 +21,7 @@ const createUserSchemaForm = z.object({
   name: z.string().min(2, "Full name must be at least 2 characters."),
   email: z.string().email("Enter a valid email"),
   password: z.string().min(6, "Password must be at least 6 characters."),
-  role: z.enum(["RIDER", "DRIVER","ADMIN"], { required_error: "Please select a role" }),
+  role: z.enum(["RIDER", "DRIVER","ADMIN"], { message: "Please select a role" }),
 })
 
 export default function SigninForm() {
