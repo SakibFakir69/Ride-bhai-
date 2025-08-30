@@ -18,9 +18,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-
 function RideOversight() {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [date, setDate] = useState<Date | undefined>();
   const [isCompleteRide, setIsCompleteRide] = useState(""); // true or false
   const [riderStatus, setRiderStatus] = useState("");
 
@@ -33,7 +32,7 @@ function RideOversight() {
     ride_status: riderStatus || undefined,
   });
 
-  console.log(data?.data ,{date, isCompleteRide, riderStatus})
+  console.log(data?.data, { date, isCompleteRide, riderStatus });
 
   const allRide = data?.data || [];
 
@@ -82,10 +81,9 @@ function RideOversight() {
         <CardContent>
           <p>Select Date</p>
           <input
-  type="date"
-  onChange={(e) => setDate(new Date(e.target.value))}
-/>
-
+            type="date"
+            onChange={(e) => setDate(new Date(e.target.value))}
+          />
         </CardContent>
       </div>
 
