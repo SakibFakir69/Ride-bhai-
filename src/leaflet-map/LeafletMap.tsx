@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { myLocation } from "@/utils/utils.geolocation";
-import { socket } from "@/socket/socket.init";
+
 
 export default function LeafletMap() {
   const [lat, setLat] = useState<number | null>(null);
@@ -29,22 +29,22 @@ export default function LeafletMap() {
 // }, []);
 
 
-  // useEffect(() => {
-  //   setMounted(true);
+  useEffect(() => {
+    setMounted(true);
 
-  //   // fetch user location once when mounted
-  //   (async () => {
-  //     try {
-  //       const position = await myLocation(); // GeolocationPosition
-  //       const { latitude, longitude } = position.coords;
+    // fetch user location once when mounted
+    (async () => {
+      try {
+        const position = await myLocation(); // GeolocationPosition
+        const { latitude, longitude } = position.coords;
 
-  //       setLat(latitude);
-  //       setLng(longitude);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   })();
-  // }, []);
+        setLat(latitude);
+        setLng(longitude);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, []);
 
   if (!mounted) return <div>Loading map...</div>;
   if (lat === null || lng === null) return <div>Getting your location...</div>;
