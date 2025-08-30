@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { useAllRideQuery } from "@/redux/features/admin/admin.api";
 import LoadingComponent from "@/utils/utils.loading";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -15,100 +10,133 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
-import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+} from "@/components/ui/select";
 
 
 function RideOversight() {
-  const { data, isLoading } = useAllRideQuery("");
-  const allRide = data?.data || [];
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [isCompleteRide, setIsCompleteRide] = useState(""); // true or false
+  const [riderStatus, setRiderStatus] = useState("");
 
-  // filters
-  const [status, setStatus] = useState("");
-  const [driver, setDriver] = useState("");
-  const [rider, setRider] = useState("");
-  const [date, setDate] = useState("");
+  // ✅ Format date for backend
+  const formattedDate = date ? date.toISOString().split("T")[0] : "";
+
+  const { data, isLoading } = useAllRideQuery({
+    createdAt: formattedDate,
+    isCompleteRide: isCompleteRide || undefined,
+    ride_status: riderStatus || undefined,
+  });
+
+  console.log(data?.data ,{date, isCompleteRide, riderStatus})
+
+  const allRide = data?.data || [];
 
   if (isLoading) {
     return <LoadingComponent />;
   }
 
-  // filter logic
-  const filteredRides = allRide.filter((ride: any) => {
-    const matchStatus = status ? ride.status === status : true;
-    const matchDriver = driver ? ride.driver?.name?.toLowerCase().includes(driver.toLowerCase()) : true;
-    const matchRider = rider ? ride.rider?.name?.toLowerCase().includes(rider.toLowerCase()) : true;
-    const matchDate = date ? ride.date?.startsWith(date) : true;
-    return matchStatus && matchDriver && matchRider && matchDate;
-  });
-
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 py-20">
       {/* Filters */}
-      <Card>
+      <div className="flex shadow justify-center items-center">
         <CardHeader>
           <CardTitle>Filters</CardTitle>
         </CardHeader>
+
+        {/* Rider Status Filter */}
         <CardContent className="grid gap-4 grid-cols-1 md:grid-cols-4">
-          <Input
-            placeholder="Filter by Driver"
-            value={driver}
-            onChange={(e) => setDriver(e.target.value)}
-          />
-          <Input
-            placeholder="Filter by Rider"
-            value={rider}
-            onChange={(e) => setRider(e.target.value)}
-          />
-          <Input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-          <Select onValueChange={(val) => setStatus(val)}>
+          <Select onValueChange={(val) => setRiderStatus(val)}>
             <SelectTrigger>
               <SelectValue placeholder="Filter by Status" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="completed">Completed</SelectItem>
-              <SelectItem value="cancelled">Cancelled</SelectItem>
-              <SelectItem value="ongoing">Ongoing</SelectItem>
+              <SelectItem value="COMPLETED">Completed</SelectItem>
+              <SelectItem value="IN_TRANSIT">In Transit</SelectItem>
+              <SelectItem value="PICKED_UP">Pick up</SelectItem>
+              <SelectItem value="PENDING">Pending</SelectItem>
             </SelectContent>
           </Select>
         </CardContent>
-      </Card>
+
+        {/* Complete Ride Filter */}
+        <CardContent>
+          <p>Complete Ride</p>
+          <Select onValueChange={(val) => setIsCompleteRide(val)}>
+            <SelectTrigger>
+              <SelectValue placeholder="Filter by Complete Ride" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="true">True</SelectItem>
+              <SelectItem value="false">False</SelectItem>
+            </SelectContent>
+          </Select>
+        </CardContent>
+
+        {/* Date Filter */}
+        <CardContent>
+          <p>Select Date</p>
+          <input
+  type="date"
+  onChange={(e) => setDate(new Date(e.target.value))}
+/>
+
+        </CardContent>
+      </div>
 
       {/* Rides Table */}
       <Card>
         <CardHeader>
-          <CardTitle>All Rides ({filteredRides.length})</CardTitle>
+          <CardTitle>All Rides</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Driver</TableHead>
-                <TableHead>Rider</TableHead>
                 <TableHead>Date</TableHead>
-                <TableHead>Status</TableHead>
+                <TableHead>Rider</TableHead>
+                <TableHead>Current</TableHead>
+                <TableHead>Destination</TableHead>
                 <TableHead>Fare</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Driver Status</TableHead>
+                <TableHead>Payment</TableHead>
+                <TableHead>Complete?</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredRides.map((ride: any) => (
-                <TableRow key={ride._id}>
-                  <TableCell>{ride.driver?.name || "N/A"}</TableCell>
-                  <TableCell>{ride.rider?.name || "N/A"}</TableCell>
-                  <TableCell>{ride.date?.split("T")[0]}</TableCell>
-                  <TableCell>{ride.status}</TableCell>
-                  <TableCell>${ride.fare}</TableCell>
+              {allRide.length > 0 ? (
+                allRide.map((ride: any) => (
+                  <TableRow key={ride._id}>
+                    <TableCell>
+                      {new Date(ride.createdAt).toLocaleString()}
+                    </TableCell>
+                    <TableCell>{ride.rider_id?.name || "N/A"}</TableCell>
+                    <TableCell>{ride.current}</TableCell>
+                    <TableCell>{ride.destination}</TableCell>
+                    <TableCell>{ride.fare}</TableCell>
+                    <TableCell>{ride.rider_status}</TableCell>
+                    <TableCell>{ride.driver_status}</TableCell>
+                    <TableCell>{ride.payment_status}</TableCell>
+                    <TableCell>
+                      {ride.isCompleteRide ? "✅ Yes" : "❌ No"}
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={9} className="text-center">
+                    No rides found
+                  </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           </Table>
-          {filteredRides.length === 0 && (
-            <p className="text-center text-muted-foreground py-4">No rides found.</p>
-          )}
         </CardContent>
       </Card>
     </div>

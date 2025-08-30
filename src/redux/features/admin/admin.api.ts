@@ -52,9 +52,10 @@ const adminApi = baseAPi.injectEndpoints({
         // all ride
 
         allRide:builder.query({
-            query:()=>({
+            query:(params)=>({
                  url:"/admin/all-ride",
                  method:"GET",
+                 params:params
 
             })
         })
